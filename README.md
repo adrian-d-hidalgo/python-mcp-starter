@@ -49,14 +49,15 @@ python-mcp-starter/
 │   ├── new_tool_template.py
 │   ├── new_prompt_template.py
 │   ├── new_resource_template.py
-│   └── test_*_template.py # Test templates
+│   ├── test_tool_template.py
+│   ├── test_prompt_template.py
+│   └── test_resource_template.py
 ├── scripts/               # Utility scripts
 │   ├── create_tool.py     # Tool generator
 │   ├── create_prompt.py   # Prompt generator
 │   ├── create_resource.py # Resource generator
 │   ├── verify_project.py  # Project verification
-│   ├── verify_discovery.py # Component discovery verification
-│   └── clean.sh          # Cleanup script
+│   └── verify_discovery.py # Component discovery verification
 ├── Dockerfile            # Production Docker configuration
 ├── Makefile             # Build and development commands
 └── pyproject.toml       # Project configuration and dependencies
