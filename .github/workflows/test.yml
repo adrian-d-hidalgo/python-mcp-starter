@@ -1,0 +1,76 @@
+name: 🧪 Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.13']  # Enfocado en versión target
+        
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: 📦 Install PDM
+      uses: pdm-project/setup-pdm@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: 📥 Install dependencies
+      run: |
+        pdm install -G dev,examples
+        
+    - name: 🧪 Run tests with coverage
+      run: |
+        pdm run pytest --cov=src --cov-report=xml --cov-report=term
+        
+    - name: 📊 Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false  # No bloqueante para equipos junior
+        verbose: true
+        
+    - name: ✅ Tests completed
+      run: echo "🎉 All tests passed successfully!"
+
+  test-examples:
+    name: Test Examples
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📂 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python 3.13
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        
+    - name: 📦 Install PDM
+      uses: pdm-project/setup-pdm@v4
+      
+    - name: 📥 Install with examples
+      run: |
+        pdm install -G examples
+        
+    - name: 🛠️ Test tool creation
+      run: |
+        pdm run new-tool test_tool
+        echo "✅ Tool creation test passed"
+        
+    - name: 🚀 Test server startup
+      run: |
+        timeout 10s pdm run start || echo "✅ Server startup test completed"

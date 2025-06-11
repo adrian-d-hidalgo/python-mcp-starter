@@ -1,0 +1,70 @@
+{
+  "name": "MCP Server Development",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/app",
+
+  // VSCode Configuration (inherits from .vscode/settings.json)
+  "customizations": {
+    "vscode": {
+      // Devcontainer-specific settings only, not in settings.json
+      "settings": {
+        // Container-specific path
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.terminal.activateEnvironment": false,
+
+        // Container-specific terminal
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+
+      "extensions": [
+        // Essential Python
+        "ms-python.python",
+        "ms-python.pylance",
+
+        // Automatic formatting
+        "ms-python.black-formatter",
+        "charliermarsh.ruff",
+
+        // Git friendly
+        "eamodio.gitlens",
+
+        // Simple Docker
+        "ms-azuretools.vscode-docker",
+
+        // Better development experience
+        "ms-vscode.vscode-json",
+        "tamasfe.even-better-toml",
+        "ms-python.debugpy",
+
+        // Useful but not intrusive
+        "pkief.material-icon-theme"
+      ]
+    }
+  },
+
+  // Ports to expose (if necessary)
+  "forwardPorts": [],
+
+  // Remote user to avoid permission issues
+  "remoteUser": "devuser",
+
+  // Environment variables for development
+  "containerEnv": {
+    "DEBUG": "true",
+    "PYTHONPATH": "/workspaces/${localWorkspaceFolderBasename}/src"
+  },
+
+  // Mounts to persist data between rebuilds
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+  ],
+
+  // Additional features
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  }
+}

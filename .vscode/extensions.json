@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    // Essential Python
+    "ms-python.python",
+    "ms-python.pylance",
+
+    // Automatic formatting
+    "ms-python.black-formatter",
+    "charliermarsh.ruff",
+
+    // Git friendly
+    "eamodio.gitlens",
+
+    // Simple Docker
+    "ms-azuretools.vscode-docker",
+
+    // Better development experience
+    "ms-vscode.vscode-json",
+    "tamasfe.even-better-toml",
+    "ms-python.debugpy",
+
+    // Useful but not intrusive
+    "pkief.material-icon-theme"
+  ]
+}

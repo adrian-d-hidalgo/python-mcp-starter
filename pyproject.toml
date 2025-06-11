@@ -1,0 +1,137 @@
+[project]
+name = "mcp-server"
+version = "0.1.0"
+description = "Template for MCP Server with Python - Optimized for junior teams"
+authors = [{ name = "Tu Nombre", email = "tu@email.com" }]
+requires-python = ">=3.12" # Consistent with Dockerfiles
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["mcp", "model-context-protocol", "ai", "template", "boilerplate"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+
+dependencies = [
+    "mcp~=1.9.0",       # Official MCP SDK with CLI support
+    "uvicorn>=0.34.2",  # ASGI server
+    "uvloop>=0.21.0",   # Fast event loop implementation
+    "httptools>=0.6.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.11.13",
+    "mypy>=1.13.0",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.24.0",
+    "pytest-mock>=3.14.0",
+    "requests>=2.31.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/tu-usuario/mcp-server-template"
+Documentation = "https://github.com/tu-usuario/mcp-server-template#readme"
+Repository = "https://github.com/tu-usuario/mcp-server-template"
+"Bug Tracker" = "https://github.com/tu-usuario/mcp-server-template/issues"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.git
+  | \.venv
+  | __pycache__
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "N", "UP", "PL", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=src --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+fail_under = 70
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+
+[tool.pdm.scripts]
+start = "python -m src.main"
+dev = "python -m src.main --reload"
+test = "pytest tests/unit"
+test-e2e = "pytest tests/e2e"
+lint = "ruff check ."
+format = "ruff format ."
+type-check = "mypy src/"
+clean = { composite = [
+    "pdm clean",
+    "rm -rf .pytest_cache .ruff_cache .mypy_cache .coverage htmlcov dist build *.egg-info .eggs .tox .hypothesis",
+    "find . -type d -name '__pycache__' -exec rm -rf {} +",
+    "find . -type f -name '*.pyc' -delete",
+    "find . -type f -name '*.pyo' -delete",
+    "find . -type f -name '*.pyd' -delete",
+    "find . -type f -name '.coverage' -delete",
+    "find . -type f -name 'coverage.xml' -delete",
+    "rm -rf .idea .vscode *.swp *.swo .DS_Store",
+    "find . -type f -name '*.log' -delete",
+] }
+clean-all = { composite = ["clean", "rm -rf .pytest_cache"] }
