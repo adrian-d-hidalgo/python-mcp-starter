@@ -40,7 +40,7 @@ WORKDIR /app
 # Install all project dependencies
 COPY pyproject.toml ./pyproject.toml
 COPY pdm.lock ./pdm.lock
-COPY README.md ./README.md
+RUN touch README.md
 
 # Install dependencies
 RUN pdm install --no-lock --no-editable

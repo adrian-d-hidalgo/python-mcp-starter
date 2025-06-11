@@ -59,7 +59,8 @@
 
   // Mounts to persist data between rebuilds
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
   ],
 
   // Additional features
