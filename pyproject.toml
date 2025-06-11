@@ -2,11 +2,21 @@
 name = "mcp-server"
 version = "0.1.0"
 description = "Template for MCP Server with Python - Optimized for junior teams"
-authors = [{ name = "Tu Nombre", email = "tu@email.com" }]
+authors = [{ name = "Adrián Darío Hidalgo Flores" }]
 requires-python = ">=3.12" # Consistent with Dockerfiles
 readme = "README.md"
 license = { text = "MIT" }
-keywords = ["mcp", "model-context-protocol", "ai", "template", "boilerplate"]
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "llm",
+    "fastapi",
+    "template",
+    "boilerplate",
+    "agent",
+    "autonomous",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -14,7 +24,12 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
     "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Code Generators",
+    "Framework :: FastAPI",
+    "Typing :: Typed",
 ]
 
 dependencies = [
